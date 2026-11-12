@@ -430,6 +430,28 @@ button{background:#29445f;border-radius:10px}button.secondary{background:#edf1f5
 }
 @media print{body.print-month.landscape .month-sheet.print-target .month-row{grid-template-columns:24mm 1fr;padding:1mm 0}body.print-month.landscape .month-sheet.print-target .month-row-title{font-size:7.5pt}body.print-month.landscape .month-sheet.print-target .month-row-sub{font-size:6.8pt}}
 
+
+/* v1.59.3 — enforce a visible, touch-scrollable mobile navigation strip */
+@media screen and (max-width:760px){
+  main>#mainNav{
+    position:sticky!important;top:0!important;z-index:900!important;
+    display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
+    align-items:center!important;justify-content:flex-start!important;
+    width:auto!important;max-width:none!important;min-width:0!important;
+    overflow-x:scroll!important;overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;
+    scrollbar-width:thin!important;scrollbar-color:#9a777d #eee5e2!important;
+    white-space:nowrap!important;touch-action:pan-x pan-y!important;
+  }
+  main>#mainNav>button{
+    display:inline-flex!important;flex:0 0 auto!important;
+    width:max-content!important;min-width:max-content!important;
+    white-space:nowrap!important;
+  }
+  main>#mainNav::-webkit-scrollbar{display:block!important;height:6px!important}
+  main>#mainNav::-webkit-scrollbar-track{background:#eee5e2!important;border-radius:8px}
+  main>#mainNav::-webkit-scrollbar-thumb{background:#9a777d!important;border-radius:8px}
+}
 </style>
 <style>
 #pastoralPanel .pastoral-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 18px}
@@ -3236,8 +3258,8 @@ window.wachauCreatePublicationFromDate=openPublicationForDate;
   body>header .global-search-wrap input{min-height:42px;height:42px;padding:9px 12px;font-size:16px;border-radius:11px}
   body>header #storageHeaderIndicator{display:none!important}
   main{display:block!important;width:100%;max-width:none;margin:0!important;padding:0 10px 22px!important}
-  #mainNav{position:sticky!important;top:0;z-index:900;display:flex;flex-flow:row nowrap;gap:7px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -10px 12px;padding:8px 10px!important;border:0;border-bottom:1px solid #e4ded4;border-radius:0 0 13px 13px;background:rgba(255,253,250,.97);box-shadow:0 4px 12px #30251a12}
-  #mainNav::-webkit-scrollbar{display:none}
+  #mainNav{position:sticky!important;top:0;z-index:900;display:flex;flex-flow:row nowrap;gap:7px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#9a777d #eee5e2;margin:0 -10px 12px;padding:8px 10px!important;border:0;border-bottom:1px solid #e4ded4;border-radius:0 0 13px 13px;background:rgba(255,253,250,.97);box-shadow:0 4px 12px #30251a12}
+  #mainNav::-webkit-scrollbar{display:block!important;height:5px!important}#mainNav::-webkit-scrollbar-track{background:#eee5e2;border-radius:8px}#mainNav::-webkit-scrollbar-thumb{background:#9a777d;border-radius:8px}
   #mainNav .nav-kicker{display:none!important}
   #mainNav button{display:inline-flex!important;flex:0 0 auto;width:auto;min-height:42px;max-width:230px;white-space:nowrap;gap:7px;margin:0;padding:9px 12px;border:1px solid #e4ded4;border-radius:22px;background:#f7f4ef;color:#4e4650;font-size:13px;line-height:1.2}
   #mainNav button.active{background:#542936;color:#fff;border-color:#542936;box-shadow:none}
