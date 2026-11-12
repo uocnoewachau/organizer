@@ -1,5 +1,5 @@
 'use strict';
-const CACHE_NAME='wachau-parish-organizer-v1-59-2';
+const CACHE_NAME='wachau-parish-organizer-v1-59-3';
 const APP_SHELL=['./','./index.html','./manifest.webmanifest','./icons/icon.svg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(APP_SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
