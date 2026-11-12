@@ -431,6 +431,31 @@ button{background:#29445f;border-radius:10px}button.secondary{background:#edf1f5
 @media print{body.print-month.landscape .month-sheet.print-target .month-row{grid-template-columns:24mm 1fr;padding:1mm 0}body.print-month.landscape .month-sheet.print-target .month-row-title{font-size:7.5pt}body.print-month.landscape .month-sheet.print-target .month-row-sub{font-size:6.8pt}}
 
 
+
+/* v1.58.7 — більший заголовок на мобільних пристроях */
+@media screen and (max-width:640px) {
+  body > header {
+    min-height:58px!important;
+    padding:13px 15px!important;
+    gap:12px!important;
+  }
+  body > header .cross {
+    flex-basis:27px!important;
+    width:27px!important;
+    font-size:25px!important;
+  }
+  body > header h1 {
+    font-size:21px!important;
+    line-height:1.2!important;
+    font-weight:600!important;
+  }
+}
+@media screen and (max-width:380px) {
+  body > header { min-height:54px!important; padding:11px 12px!important; }
+  body > header .cross { flex-basis:25px!important; width:25px!important; font-size:23px!important; }
+  body > header h1 { font-size:19px!important; }
+}
+
 /* v1.58.6 — прибрати крапельку, повернути хрест у мобільній шапці */
 @media screen and (max-width:640px) {
   body > header #storageHeaderIndicator,
@@ -586,7 +611,7 @@ header{
 <link rel="icon" type="image/svg+xml" href="./icons/wachau-icon.svg">
 </head>
 <body>
-<header><div class="cross">✝</div><h1>Православна громада Вахау</h1><p>Парафіяльний органайзер · Українська Православна Церква</p>
+<header><div class="cross">✝</div><h1>Парафіяльний органайзер</h1><p>Парафіяльний органайзер · Українська Православна Церква</p>
 <div class="global-search-wrap" role="search"><label for="globalSearch">Пошук по всьому органайзеру</label><input id="globalSearch" type="search" placeholder="Ім’я, дата, документ, подія, сума…" autocomplete="off"><div id="globalSearchResults" class="global-search-results hidden" aria-live="polite"></div></div><div id="storageHeaderIndicator" class="storage-header-indicator" role="status" aria-live="polite">Сховище: перевірка…</div>
 </header>
 <main>
