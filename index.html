@@ -2114,6 +2114,7 @@ if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   }
   main>#mainNav.wachau-mobile-nav>button.active{background:#542936!important;color:#fff!important;border-color:#542936!important;box-shadow:none!important}
   main>#mainNav.wachau-mobile-nav>button .nav-ico{display:inline-block!important;flex:0 0 auto!important;width:auto!important;font-size:15px!important}
+  #wachauMobileNavTrack[hidden]{display:none!important}
   #wachauMobileNavTrack{
     display:block!important;position:relative!important;box-sizing:border-box!important;
     width:calc(100% + 16px)!important;height:10px!important;margin:0 -8px 12px!important;
@@ -2157,8 +2158,8 @@ if ('serviceWorker' in navigator && location.protocol !== 'file:') {
     function update(){
       var max=nav.scrollWidth-nav.clientWidth;
       var trackWidth=track.clientWidth-16;
-      if(max<=2||trackWidth<=0){track.style.display='none';return;}
-      track.style.display='block';
+      if(max<=2||trackWidth<=0){track.hidden=true;return;}
+      track.hidden=false;
       var ratio=nav.clientWidth/nav.scrollWidth;
       var thumbWidth=Math.max(30,trackWidth*ratio);
       var travel=Math.max(0,trackWidth-thumbWidth);
