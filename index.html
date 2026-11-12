@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Парафіяльний органайзер · Wachau · 1.60.0</title>
+<title>Парафіяльний органайзер · Wachau · 1.60.1</title>
 <style>
 :root{--wine:#542936;--gold:#b08a46;--paper:#f7f2e9;--ink:#292522;--muted:#746c64}
 *{box-sizing:border-box}body{margin:0;background:#eee8de;color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
@@ -2082,133 +2082,7 @@ if ('serviceWorker' in navigator && location.protocol !== 'file:') {
 }
 <\/script>
 
-<!-- v1.60.0: rebuilt mobile navigation with a dedicated visible scroll track -->
-<style id="wachau-mobile-nav-rebuild">
-@media screen and (max-width:760px){
-  body{overflow-x:hidden!important}
-  main{display:flex!important;flex-direction:column!important;align-items:stretch!important;min-width:0!important}
-  main>#mainNav.wachau-mobile-nav{
-    box-sizing:border-box!important;position:sticky!important;top:0!important;z-index:1000!important;
-    display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;
-    justify-content:flex-start!important;gap:8px!important;
-    width:calc(100% + 16px)!important;max-width:none!important;min-width:0!important;
-    margin:0 -8px 0!important;padding:9px 10px 10px!important;
-    overflow-x:auto!important;overflow-y:hidden!important;
-    -webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;
-    scroll-behavior:smooth!important;scrollbar-width:none!important;
-    white-space:nowrap!important;touch-action:pan-x pan-y!important;
-    background:#fffdfa!important;border:0!important;border-bottom:1px solid #e6ddd8!important;
-    border-radius:0 0 12px 12px!important;box-shadow:0 3px 10px #30251a12!important;
-  }
-  main>#mainNav.wachau-mobile-nav::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
-  main>#mainNav.wachau-mobile-nav .nav-kicker{display:none!important}
-  main>#mainNav.wachau-mobile-nav>button{
-    box-sizing:border-box!important;display:inline-flex!important;flex:0 0 auto!important;
-    align-items:center!important;justify-content:flex-start!important;gap:7px!important;
-    width:max-content!important;min-width:max-content!important;max-width:none!important;
-    min-height:42px!important;margin:0!important;padding:9px 13px!important;
-    white-space:nowrap!important;overflow:visible!important;
-    border:1px solid #e3d9d5!important;border-radius:999px!important;
-    background:#f7f3ef!important;color:#4e4650!important;
-    font-size:13px!important;line-height:1.2!important;text-align:left!important;
-  }
-  main>#mainNav.wachau-mobile-nav>button.active{background:#542936!important;color:#fff!important;border-color:#542936!important;box-shadow:none!important}
-  main>#mainNav.wachau-mobile-nav>button .nav-ico{display:inline-block!important;flex:0 0 auto!important;width:auto!important;font-size:15px!important}
-  #wachauMobileNavTrack[hidden]{display:none!important}
-  #wachauMobileNavTrack{
-    display:block!important;position:relative!important;box-sizing:border-box!important;
-    width:calc(100% + 16px)!important;height:10px!important;margin:0 -8px 12px!important;
-    padding:3px 8px!important;background:#fffdfa!important;border-bottom:1px solid #e6ddd8!important;
-    touch-action:pan-x!important;cursor:grab!important;
-  }
-  #wachauMobileNavTrack .wachau-nav-track{
-    position:relative!important;width:100%!important;height:4px!important;
-    border-radius:99px!important;background:#e8dfdc!important;overflow:hidden!important;
-  }
-  #wachauMobileNavTrack .wachau-nav-thumb{
-    position:absolute!important;left:0!important;top:0!important;height:4px!important;
-    min-width:30px!important;border-radius:99px!important;background:#8e626b!important;
-    transform:translateX(0);will-change:transform,width;
-  }
-}
-@media screen and (min-width:761px){#wachauMobileNavTrack{display:none!important}}
-</style>
-<script id="wachau-mobile-nav-rebuild-script">
-(function(){
-  'use strict';
-  var nav=document.getElementById('mainNav');
-  if(!nav)return;
-  function setup(){
-    if(window.matchMedia && !window.matchMedia('(max-width:760px)').matches)return;
-    nav.classList.add('wachau-mobile-nav');
-    var track=document.getElementById('wachauMobileNavTrack');
-    if(!track){
-      track=document.createElement('div');
-      track.id='wachauMobileNavTrack';
-      track.setAttribute('role','scrollbar');
-      track.setAttribute('aria-label','Прокручування розділів навігації');
-      track.setAttribute('aria-controls','mainNav');
-      track.setAttribute('aria-orientation','horizontal');
-      track.tabIndex=0;
-      track.innerHTML='<div class="wachau-nav-track"><div class="wachau-nav-thumb"></div></div>';
-      nav.insertAdjacentElement('afterend',track);
-    }
-    var thumb=track.querySelector('.wachau-nav-thumb');
-    var dragging=false;
-    function update(){
-      var max=nav.scrollWidth-nav.clientWidth;
-      var trackWidth=track.clientWidth-16;
-      if(max<=2||trackWidth<=0){track.hidden=true;return;}
-      track.hidden=false;
-      var ratio=nav.clientWidth/nav.scrollWidth;
-      var thumbWidth=Math.max(30,trackWidth*ratio);
-      var travel=Math.max(0,trackWidth-thumbWidth);
-      var left=travel*(nav.scrollLeft/max);
-      thumb.style.width=thumbWidth+'px';
-      thumb.style.transform='translateX('+left+'px)';
-      track.setAttribute('aria-valuemin','0');
-      track.setAttribute('aria-valuemax',String(Math.round(max)));
-      track.setAttribute('aria-valuenow',String(Math.round(nav.scrollLeft)));
-    }
-    function scrollAt(clientX){
-      var rect=track.getBoundingClientRect();
-      var trackWidth=track.clientWidth-16;
-      var max=nav.scrollWidth-nav.clientWidth;
-      var thumbWidth=thumb.getBoundingClientRect().width;
-      var travel=Math.max(1,trackWidth-thumbWidth);
-      var x=Math.min(travel,Math.max(0,clientX-rect.left-8-thumbWidth/2));
-      nav.scrollLeft=(x/travel)*max;
-    }
-    track.addEventListener('pointerdown',function(e){
-      dragging=true;track.setPointerCapture(e.pointerId);track.style.cursor='grabbing';scrollAt(e.clientX);e.preventDefault();
-    });
-    track.addEventListener('pointermove',function(e){if(dragging)scrollAt(e.clientX)});
-    function endDrag(){dragging=false;track.style.cursor='grab'}
-    track.addEventListener('pointerup',endDrag);
-    track.addEventListener('pointercancel',endDrag);
-    track.addEventListener('keydown',function(e){
-      if(e.key==='ArrowRight'){nav.scrollBy({left:120,behavior:'smooth'});e.preventDefault()}
-      if(e.key==='ArrowLeft'){nav.scrollBy({left:-120,behavior:'smooth'});e.preventDefault()}
-      if(e.key==='Home'){nav.scrollTo({left:0,behavior:'smooth'});e.preventDefault()}
-      if(e.key==='End'){nav.scrollTo({left:nav.scrollWidth,behavior:'smooth'});e.preventDefault()}
-    });
-    nav.addEventListener('scroll',update,{passive:true});
-    window.addEventListener('resize',update);
-    nav.addEventListener('click',function(e){
-      var button=e.target.closest('button[data-main]');
-      if(button)requestAnimationFrame(function(){
-        var left=button.offsetLeft+button.offsetWidth/2-nav.clientWidth/2;
-        nav.scrollTo({left:left,behavior:'smooth'});
-        update();
-      });
-    });
-    if(window.ResizeObserver){var ro=new ResizeObserver(update);ro.observe(nav);Array.from(nav.children).forEach(function(el){ro.observe(el)})}
-    update();
-    requestAnimationFrame(update);
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
-})();
-</script>
+
 
 </body></html>`);w.document.close();}
  catch(err){try{w.close();}catch(_){}alert('Не вдалося сформувати свідоцтво: '+(err&&err.message?err.message:'невідома помилка'));}
@@ -3802,6 +3676,134 @@ window.wachauCreatePublicationFromDate=openPublicationForDate;
  $('chooseEncryptedBackup')?.addEventListener('click',()=>{const p=$('secureBackupPassword').value;if(p.length<10){status('Спочатку введіть пароль щонайменше з 10 символів.',true);return}$('encryptedBackupFile').click()});
  $('encryptedBackupFile')?.addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{if(!crypto?.subtle)throw Error('Цей браузер не підтримує Web Crypto.');if(file.size>80*1024*1024)throw Error('Файл завеликий (максимум 80 МБ).');const pass=$('secureBackupPassword').value;if(pass.length<10)throw Error('Пароль має містити щонайменше 10 символів.');const payload=JSON.parse(await file.text());if(payload.format!=='WACHAU-ENC'||payload.version!==1||payload.cipher!=='AES-256-GCM'||payload.kdf!=='PBKDF2-SHA256'||payload.iterations!==310000)throw Error('Невідомий або непідтримуваний формат зашифрованої копії.');const salt=un64(payload.salt),iv=un64(payload.iv),cipher=un64(payload.data);if(salt.length!==16||iv.length!==12||cipher.length<17)throw Error('Криптографічні параметри резервної копії пошкоджені.');const key=await derive(pass,salt);let plain;try{plain=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,cipher)}catch(_){throw Error('Не вдалося розшифрувати файл. Перевірте пароль або цілісність копії.')}const data=JSON.parse(dec.decode(plain));if(data.format!=='WACHAU-ENCRYPTED-BACKUP'||typeof data.version!=='string'||!data.createdAt)throw Error('Метадані зашифрованої копії мають неправильний формат.');const keys=validateSnapshot(data.storage);if(!confirm('Знайдено зашифровану копію від '+new Date(data.createdAt).toLocaleString('uk-UA')+'. Записів: '+keys.length+'. Поточні дані буде замінено. Перед початком створено знімок поточного стану для автоматичного відкату. Продовжити?'))return;const previous=snapshot();try{replaceSnapshot(data.storage);verifySnapshot(data.storage)}catch(restoreError){try{replaceSnapshot(previous);verifySnapshot(previous);status('Відновлення не вдалося. Автоматичний відкат виконано й перевірено: попередні дані збережено. Причина: '+(restoreError.message||'помилка запису.'),true);return}catch(rollbackError){status('КРИТИЧНО: відновлення та автоматичний відкат не пройшли перевірку. Не закривайте вкладку й не очищайте дані браузера. Помилка відновлення: '+(restoreError.message||'невідома')+'; помилка відкату: '+(rollbackError.message||'невідома')+'.',true);return}}status('✓ Зашифровану копію відновлено. Перелік ключів і кожне значення перевірено.');if(confirm('Дані успішно відновлено. Перезавантажити органайзер зараз?'))location.reload()}catch(err){status(err.message||'Не вдалося відновити копію. Поточні дані не змінено.',true)}finally{e.target.value=''}});
 
+})();
+</script>
+
+<!-- v1.60.0: rebuilt mobile navigation with a dedicated visible scroll track -->
+<style id="wachau-mobile-nav-rebuild">
+@media screen and (max-width:760px){
+  body{overflow-x:hidden!important}
+  main{display:flex!important;flex-direction:column!important;align-items:stretch!important;min-width:0!important}
+  main>#mainNav.wachau-mobile-nav{
+    box-sizing:border-box!important;position:sticky!important;top:0!important;z-index:1000!important;
+    display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;
+    justify-content:flex-start!important;gap:8px!important;
+    width:calc(100% + 16px)!important;max-width:none!important;min-width:0!important;
+    margin:0 -8px 0!important;padding:9px 10px 10px!important;
+    overflow-x:auto!important;overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;
+    scroll-behavior:smooth!important;scrollbar-width:none!important;
+    white-space:nowrap!important;touch-action:pan-x pan-y!important;
+    background:#fffdfa!important;border:0!important;border-bottom:1px solid #e6ddd8!important;
+    border-radius:0 0 12px 12px!important;box-shadow:0 3px 10px #30251a12!important;
+  }
+  main>#mainNav.wachau-mobile-nav::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
+  main>#mainNav.wachau-mobile-nav .nav-kicker{display:none!important}
+  main>#mainNav.wachau-mobile-nav>button{
+    box-sizing:border-box!important;display:inline-flex!important;flex:0 0 auto!important;
+    align-items:center!important;justify-content:flex-start!important;gap:7px!important;
+    width:max-content!important;min-width:max-content!important;max-width:none!important;
+    min-height:42px!important;margin:0!important;padding:9px 13px!important;
+    white-space:nowrap!important;overflow:visible!important;
+    border:1px solid #e3d9d5!important;border-radius:999px!important;
+    background:#f7f3ef!important;color:#4e4650!important;
+    font-size:13px!important;line-height:1.2!important;text-align:left!important;
+  }
+  main>#mainNav.wachau-mobile-nav>button.active{background:#542936!important;color:#fff!important;border-color:#542936!important;box-shadow:none!important}
+  main>#mainNav.wachau-mobile-nav>button .nav-ico{display:inline-block!important;flex:0 0 auto!important;width:auto!important;font-size:15px!important}
+  #wachauMobileNavTrack[hidden]{display:none!important}
+  #wachauMobileNavTrack{
+    display:block!important;position:relative!important;box-sizing:border-box!important;
+    width:calc(100% + 16px)!important;height:10px!important;margin:0 -8px 12px!important;
+    padding:3px 8px!important;background:#fffdfa!important;border-bottom:1px solid #e6ddd8!important;
+    touch-action:pan-x!important;cursor:grab!important;
+  }
+  #wachauMobileNavTrack .wachau-nav-track{
+    position:relative!important;width:100%!important;height:4px!important;
+    border-radius:99px!important;background:#e8dfdc!important;overflow:hidden!important;
+  }
+  #wachauMobileNavTrack .wachau-nav-thumb{
+    position:absolute!important;left:0!important;top:0!important;height:4px!important;
+    min-width:30px!important;border-radius:99px!important;background:#8e626b!important;
+    transform:translateX(0);will-change:transform,width;
+  }
+}
+@media screen and (min-width:761px){#wachauMobileNavTrack{display:none!important}}
+</style>
+<script id="wachau-mobile-nav-rebuild-script">
+(function(){
+  'use strict';
+  var nav=document.getElementById('mainNav');
+  if(!nav)return;
+  function setup(){
+    if(window.matchMedia && !window.matchMedia('(max-width:760px)').matches)return;
+    nav.classList.add('wachau-mobile-nav');
+    var track=document.getElementById('wachauMobileNavTrack');
+    if(!track){
+      track=document.createElement('div');
+      track.id='wachauMobileNavTrack';
+      track.setAttribute('role','scrollbar');
+      track.setAttribute('aria-label','Прокручування розділів навігації');
+      track.setAttribute('aria-controls','mainNav');
+      track.setAttribute('aria-orientation','horizontal');
+      track.tabIndex=0;
+      track.innerHTML='<div class="wachau-nav-track"><div class="wachau-nav-thumb"></div></div>';
+      nav.insertAdjacentElement('afterend',track);
+    }
+    var thumb=track.querySelector('.wachau-nav-thumb');
+    var dragging=false;
+    function update(){
+      var max=nav.scrollWidth-nav.clientWidth;
+      var trackWidth=track.clientWidth-16;
+      if(max<=2||trackWidth<=0){track.hidden=true;return;}
+      track.hidden=false;
+      var ratio=nav.clientWidth/nav.scrollWidth;
+      var thumbWidth=Math.max(30,trackWidth*ratio);
+      var travel=Math.max(0,trackWidth-thumbWidth);
+      var left=travel*(nav.scrollLeft/max);
+      thumb.style.width=thumbWidth+'px';
+      thumb.style.transform='translateX('+left+'px)';
+      track.setAttribute('aria-valuemin','0');
+      track.setAttribute('aria-valuemax',String(Math.round(max)));
+      track.setAttribute('aria-valuenow',String(Math.round(nav.scrollLeft)));
+    }
+    function scrollAt(clientX){
+      var rect=track.getBoundingClientRect();
+      var trackWidth=track.clientWidth-16;
+      var max=nav.scrollWidth-nav.clientWidth;
+      var thumbWidth=thumb.getBoundingClientRect().width;
+      var travel=Math.max(1,trackWidth-thumbWidth);
+      var x=Math.min(travel,Math.max(0,clientX-rect.left-8-thumbWidth/2));
+      nav.scrollLeft=(x/travel)*max;
+    }
+    track.addEventListener('pointerdown',function(e){
+      dragging=true;track.setPointerCapture(e.pointerId);track.style.cursor='grabbing';scrollAt(e.clientX);e.preventDefault();
+    });
+    track.addEventListener('pointermove',function(e){if(dragging)scrollAt(e.clientX)});
+    function endDrag(){dragging=false;track.style.cursor='grab'}
+    track.addEventListener('pointerup',endDrag);
+    track.addEventListener('pointercancel',endDrag);
+    track.addEventListener('keydown',function(e){
+      if(e.key==='ArrowRight'){nav.scrollBy({left:120,behavior:'smooth'});e.preventDefault()}
+      if(e.key==='ArrowLeft'){nav.scrollBy({left:-120,behavior:'smooth'});e.preventDefault()}
+      if(e.key==='Home'){nav.scrollTo({left:0,behavior:'smooth'});e.preventDefault()}
+      if(e.key==='End'){nav.scrollTo({left:nav.scrollWidth,behavior:'smooth'});e.preventDefault()}
+    });
+    nav.addEventListener('scroll',update,{passive:true});
+    window.addEventListener('resize',update);
+    nav.addEventListener('click',function(e){
+      var button=e.target.closest('button[data-main]');
+      if(button)requestAnimationFrame(function(){
+        var left=button.offsetLeft+button.offsetWidth/2-nav.clientWidth/2;
+        nav.scrollTo({left:left,behavior:'smooth'});
+        update();
+      });
+    });
+    if(window.ResizeObserver){var ro=new ResizeObserver(update);ro.observe(nav);Array.from(nav.children).forEach(function(el){ro.observe(el)})}
+    update();
+    requestAnimationFrame(update);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
 })();
 </script>
 
