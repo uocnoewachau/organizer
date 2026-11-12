@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Парафіяльний органайзер · Wachau · 1.60.1</title>
+<title>Парафіяльний органайзер · Wachau · 1.58.9</title>
 <style>
 :root{--wine:#542936;--gold:#b08a46;--paper:#f7f2e9;--ink:#292522;--muted:#746c64}
 *{box-sizing:border-box}body{margin:0;background:#eee8de;color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
@@ -431,27 +431,63 @@ button{background:#29445f;border-radius:10px}button.secondary{background:#edf1f5
 @media print{body.print-month.landscape .month-sheet.print-target .month-row{grid-template-columns:24mm 1fr;padding:1mm 0}body.print-month.landscape .month-sheet.print-target .month-row-title{font-size:7.5pt}body.print-month.landscape .month-sheet.print-target .month-row-sub{font-size:6.8pt}}
 
 
-/* v1.59.3 — enforce a visible, touch-scrollable mobile navigation strip */
-@media screen and (max-width:760px){
-  main>#mainNav{
-    position:sticky!important;top:0!important;z-index:900!important;
-    display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
-    align-items:center!important;justify-content:flex-start!important;
-    width:auto!important;max-width:none!important;min-width:0!important;
-    overflow-x:scroll!important;overflow-y:hidden!important;
-    -webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;
-    scrollbar-width:thin!important;scrollbar-color:#9a777d #eee5e2!important;
-    white-space:nowrap!important;touch-action:pan-x pan-y!important;
+
+/* v1.58.7 — більший заголовок на мобільних пристроях */
+@media screen and (max-width:640px) {
+  body > header {
+    min-height:58px!important;
+    padding:13px 15px!important;
+    gap:12px!important;
   }
-  main>#mainNav>button{
-    display:inline-flex!important;flex:0 0 auto!important;
-    width:max-content!important;min-width:max-content!important;
-    white-space:nowrap!important;
+  body > header .cross {
+    flex-basis:27px!important;
+    width:27px!important;
+    font-size:25px!important;
   }
-  main>#mainNav::-webkit-scrollbar{display:block!important;height:6px!important}
-  main>#mainNav::-webkit-scrollbar-track{background:#eee5e2!important;border-radius:8px}
-  main>#mainNav::-webkit-scrollbar-thumb{background:#9a777d!important;border-radius:8px}
+  body > header h1 {
+    font-size:21px!important;
+    line-height:1.2!important;
+    font-weight:600!important;
+  }
 }
+@media screen and (max-width:380px) {
+  body > header { min-height:54px!important; padding:11px 12px!important; }
+  body > header .cross { flex-basis:25px!important; width:25px!important; font-size:23px!important; }
+  body > header h1 { font-size:19px!important; }
+}
+
+/* v1.58.6 — прибрати крапельку, повернути хрест у мобільній шапці */
+@media screen and (max-width:640px) {
+  body > header #storageHeaderIndicator,
+  body > header .storage-header-indicator {
+    display:none!important;
+    position:static!important;
+    width:0!important;
+    height:0!important;
+    min-width:0!important;
+    padding:0!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+  body > header .cross {
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    flex:0 0 23px!important;
+    width:23px!important;
+    height:auto!important;
+    color:#dfc797!important;
+  }
+  body > header {
+    padding-left:12px!important;
+    padding-right:12px!important;
+  }
+}
+@media screen and (max-width:380px) {
+  body > header { padding-left:9px!important; }
+  body > header .cross { flex-basis:21px!important; width:21px!important; }
+}
+
 </style>
 <style>
 #pastoralPanel .pastoral-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 18px}
@@ -2081,9 +2117,6 @@ if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   });
 }
 <\/script>
-
-
-
 </body></html>`);w.document.close();}
  catch(err){try{w.close();}catch(_){}alert('Не вдалося сформувати свідоцтво: '+(err&&err.message?err.message:'невідома помилка'));}
 }
@@ -3237,105 +3270,312 @@ window.wachauCreatePublicationFromDate=openPublicationForDate;
 }
 @media(max-width:420px){#mainNav{grid-template-columns:1fr 1fr}.dashboard-stat strong{font-size:20px}.dashboard-actions{grid-template-columns:1fr}.dashboard-head{display:block}.dashboard-head button{width:100%}}
 
-/* Mobile-only header adjustments; desktop header remains v1.57.0 */
-@media screen and (max-width:640px){
- body > header{display:flex!important;flex-flow:row nowrap!important;align-items:center!important;gap:12px!important;min-height:58px!important;height:auto!important;padding:13px 15px!important;text-align:left!important;overflow:hidden!important}
- body > header:after{display:none!important}
- body > header .cross{display:block!important;flex:0 0 27px!important;width:27px!important;margin:0!important;font-size:25px!important;line-height:1!important;color:#dfc797!important}
- body > header h1{display:block!important;flex:1 1 auto!important;min-width:0!important;margin:0!important;font-size:21px!important;line-height:1.2!important;font-weight:600!important;letter-spacing:0!important}
- body > header p,body > header .global-search-wrap,body > header #storageHeaderIndicator{display:none!important}
+/* v1.58 — mobile layout: compact navigation, touch controls and narrow-screen workspaces */
+@media screen and (max-width: 640px) {
+  html, body { width:100%; min-width:0; overflow-x:hidden; }
+  body { font-size:15px; -webkit-text-size-adjust:100%; }
+  header { min-height:0; padding:14px 14px 13px!important; gap:9px!important; align-items:center; }
+  header .cross { flex:0 0 auto; font-size:25px!important; margin:0!important; }
+  header h1 { font-size:clamp(19px,5.5vw,24px)!important; line-height:1.15; overflow-wrap:anywhere; }
+  header p { font-size:11px!important; line-height:1.35; margin:3px 0 0!important; }
+  main { display:flex!important; flex-direction:column!important; width:100%; max-width:100%!important; margin:0 auto!important; padding:10px!important; gap:10px!important; }
+  #mainNav {
+    position:sticky!important; top:0!important; z-index:50!important;
+    display:flex!important; flex-flow:row nowrap!important; align-items:center;
+    gap:6px!important; width:100%!important; max-width:100%!important;
+    padding:8px!important; margin:0!important; overflow-x:auto!important;
+    overflow-y:hidden!important; overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch; scrollbar-width:thin;
+    border-radius:12px!important; background:#fff!important;
+  }
+  #mainNav .nav-kicker { display:none!important; }
+  #mainNav button {
+    flex:0 0 auto!important; width:auto!important; min-height:42px;
+    display:inline-flex!important; flex-direction:row!important;
+    justify-content:center; white-space:nowrap; gap:6px!important;
+    margin:0!important; padding:9px 11px!important; font-size:12px!important;
+    border-radius:10px!important;
+  }
+  #mainNav button .nav-ico { width:auto!important; font-size:16px!important; }
+  #workspaceContent { display:block!important; width:100%!important; min-width:0!important; max-width:100%!important; }
+  #workspaceContent > *, #lifePanel, #lifePanel > *, #eventEntry, #workPanel,
+  #registers, #documentsPanel, #budgetPanel, #governancePanel, #pastoralPanel,
+  #backupPanel, .workspace-screen { width:100%!important; min-width:0!important; max-width:100%!important; }
+  #lifePanel { display:grid!important; grid-template-columns:minmax(0,1fr)!important; gap:10px!important; }
+  .panel, #eventEntry, #workPanel, #documentsPanel, #budgetPanel, #backupPanel {
+    padding:13px!important; border-radius:13px!important; margin-left:0!important; margin-right:0!important;
+  }
+  h2 { font-size:20px!important; line-height:1.2; }
+  h3 { overflow-wrap:anywhere; }
+  input, select, textarea { width:100%!important; min-width:0!important; max-width:100%!important; min-height:44px; font-size:16px!important; }
+  textarea { min-height:90px; }
+  button { min-height:42px; max-width:100%; touch-action:manipulation; }
+  .actions, .fin-tabs, .tabs, .gov-tabs, .pastoral-tabs {
+    display:flex!important; flex-wrap:wrap!important; gap:7px!important;
+    max-width:100%; min-width:0;
+  }
+  .actions button { flex:1 1 100%!important; min-width:0!important; width:100%; }
+  #workPanel > .tabs { overflow-x:auto!important; flex-wrap:nowrap!important; }
+  #workPanel > .tabs button { flex:0 0 auto!important; white-space:nowrap; }
+  .fin-tabs button, .tabs button, .gov-tabs button, .pastoral-tabs button {
+    flex:0 0 auto; min-height:40px; white-space:nowrap;
+  }
+  .book-stats, .fin-stats { grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+  .doc-grid { grid-template-columns:minmax(0,1fr)!important; }
+  .day-editor-grid { grid-template-columns:minmax(0,1fr)!important; }
+  .month-print-area { grid-template-columns:minmax(0,1fr)!important; }
+  .month-grid { display:grid!important; grid-template-columns:repeat(7,minmax(0,1fr))!important; gap:3px!important; width:100%; }
+  .month-cell { min-width:0!important; min-height:54px!important; padding:3px!important; overflow:hidden; }
+  .month-cell .dayno { font-size:12px!important; }
+  .month-cell .cell-tag { font-size:8px!important; line-height:1.15; overflow-wrap:anywhere; }
+  .calendar-controls { display:flex; flex-wrap:wrap; gap:7px; max-width:100%; }
+  .calendar-controls button { flex:1 1 auto; }
+  .event { align-items:stretch!important; flex-direction:column!important; min-width:0; }
+  .event .actions { width:100%; }
+  .table-wrap, #bookTable, [id$="Table"], .table-scroll {
+    display:block; width:100%; max-width:100%; overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch;
+  }
+  table { max-width:100%; }
+  th, td { overflow-wrap:anywhere; }
+  .poster { max-width:min(100%,500px)!important; }
+  .poster.format-story { max-width:min(100%,360px)!important; }
+  .poster.format-square { max-width:min(100%,500px)!important; }
+  .modal, .modal-content, .dialog, [role="dialog"] { max-width:calc(100vw - 20px)!important; }
+  img, video, canvas, iframe { max-width:100%; }
 }
-@media screen and (max-width:380px){body > header{min-height:54px!important;padding:11px 12px!important}body > header .cross{flex-basis:25px!important;width:25px!important;font-size:23px!important}body > header h1{font-size:19px!important}}
+@media screen and (max-width: 380px) {
+  main { padding:7px!important; }
+  header { padding:12px 10px!important; }
+  #mainNav { padding:6px!important; gap:4px!important; }
+  #mainNav button { padding:8px 9px!important; font-size:11px!important; }
+  .panel, #eventEntry, #workPanel, #documentsPanel, #budgetPanel, #backupPanel { padding:10px!important; }
+  .book-stats, .fin-stats { grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:6px!important; }
+  .month-cell { min-height:47px!important; }
+}
 
-/* v1.59.0 — comprehensive mobile-only adaptation */
-@media screen and (max-width:760px){
-  html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
-  body{font-size:15px;line-height:1.45;overflow-x:hidden;background:#f3f0eb}
-  body>header{position:relative;display:flex!important;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px 10px;min-height:0;padding:12px 14px!important;text-align:left!important}
-  body>header:after{display:none!important}
-  body>header .cross{display:block!important;flex:0 0 28px;width:28px;margin:0!important;font-size:26px!important;line-height:1;color:#dfc797}
-  body>header h1{display:block;flex:1 1 calc(100% - 42px);min-width:0;margin:0!important;font-size:clamp(19px,5vw,23px)!important;line-height:1.15;overflow-wrap:anywhere}
-  body>header p{display:none!important}
-  body>header .global-search-wrap{display:block!important;flex:1 1 100%;width:100%;margin:2px 0 0!important}
-  body>header .global-search-wrap label{display:none}
-  body>header .global-search-wrap input{min-height:42px;height:42px;padding:9px 12px;font-size:16px;border-radius:11px}
-  body>header #storageHeaderIndicator{display:none!important}
-  main{display:block!important;width:100%;max-width:none;margin:0!important;padding:0 10px 22px!important}
-  #mainNav{position:sticky!important;top:0;z-index:900;display:flex;flex-flow:row nowrap;gap:7px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#9a777d #eee5e2;margin:0 -10px 12px;padding:8px 10px!important;border:0;border-bottom:1px solid #e4ded4;border-radius:0 0 13px 13px;background:rgba(255,253,250,.97);box-shadow:0 4px 12px #30251a12}
-  #mainNav::-webkit-scrollbar{display:block!important;height:5px!important}#mainNav::-webkit-scrollbar-track{background:#eee5e2;border-radius:8px}#mainNav::-webkit-scrollbar-thumb{background:#9a777d;border-radius:8px}
-  #mainNav .nav-kicker{display:none!important}
-  #mainNav button{display:inline-flex!important;flex:0 0 auto;width:auto;min-height:42px;max-width:230px;white-space:nowrap;gap:7px;margin:0;padding:9px 12px;border:1px solid #e4ded4;border-radius:22px;background:#f7f4ef;color:#4e4650;font-size:13px;line-height:1.2}
-  #mainNav button.active{background:#542936;color:#fff;border-color:#542936;box-shadow:none}
-  #mainNav button .nav-ico{width:auto;flex:0 0 auto;font-size:15px}
-  #workspaceContent{display:block!important;min-width:0;width:100%;gap:12px}
-  #workspaceContent>*{min-width:0;max-width:100%;margin-bottom:12px}
-  .panel,#eventEntry,#workPanel,#documentsPanel,#budgetPanel{min-width:0;width:100%;padding:14px!important;border-radius:14px;box-shadow:0 3px 14px #24364b0a}
-  h2{font-size:21px!important;line-height:1.2;margin:0 0 12px}
-  h3{font-size:17px;line-height:1.25}
-  .dashboard-head{display:flex;flex-direction:column;align-items:stretch;gap:8px}
-  .dashboard-head>button{align-self:flex-start}
-  .dashboard-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
-  .dashboard-grid{grid-template-columns:1fr!important;gap:10px!important}
-  .dashboard-grid>*{min-width:0}
-  .book-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
-  .book-stat{padding:11px 10px;min-width:0}
-  .book-stat strong{font-size:23px}
-  .book-stat-total{grid-column:1/-1}
-  .tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;gap:6px;padding:2px 1px 8px;margin:0 0 12px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
-  .tabs button{flex:0 0 auto;min-height:40px;padding:9px 12px;font-size:13px;white-space:nowrap}
-  .actions{display:flex;flex-direction:column;gap:8px}
-  .actions button,.actions a{width:100%;min-height:44px;flex:1 1 auto}
-  button,.button{min-height:42px;touch-action:manipulation}
-  input,select,textarea{width:100%;max-width:100%;min-height:43px;font-size:16px!important;padding:10px 11px;border-radius:10px}
-  textarea{min-height:92px}
-  label{font-size:13px;margin:11px 0 5px}
-  .event{align-items:flex-start;flex-direction:column;gap:8px;padding:11px}
-  .event>*{max-width:100%;overflow-wrap:anywhere}
-  .month-grid{grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;margin:8px 0 12px}
-  .month-cell{min-width:0;min-height:54px;padding:4px 2px;border-radius:6px;font-size:10px;overflow-wrap:anywhere}
-  .month-cell.head{font-size:10px;padding:5px 0}
-  .month-cell strong,.month-cell b{font-size:11px}
-  .calendar-controls{max-width:none;width:100%}
-  .calendar-legend{gap:7px 12px;font-size:11px}
-  .day-editor{padding:11px}
-  .day-editor-grid{grid-template-columns:1fr!important;gap:0}
-  .poster{width:100%;max-width:100%;height:auto;min-height:0;aspect-ratio:210/297;padding:clamp(14px,4vw,24px);box-shadow:none}
-  .poster:before{inset:8px}
-  .poster .cross{font-size:27px}
-  .poster h2{font-size:clamp(19px,5vw,26px)!important}
-  .poster .place{font-size:16px}
-  .poster .address,.poster .body{overflow-wrap:anywhere}
-  .table-wrap,.table-responsive,.data-table-wrap{display:block;width:100%;max-width:100%;overflow-x:auto!important;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
-  table{min-width:620px}
-  .table-wrap table,.table-responsive table,.data-table-wrap table{width:max-content;min-width:100%}
-  th,td{overflow-wrap:anywhere}
-  .form-grid,.grid-2,.grid-3,.day-editor-grid{grid-template-columns:1fr!important}
-  .form-grid>* ,.grid-2>* ,.grid-3>*{min-width:0}
-  .modal,.dialog,.modal-content{width:calc(100vw - 20px)!important;max-width:calc(100vw - 20px)!important;max-height:88dvh;overflow:auto}
-  .global-search-results{left:0!important;right:0!important;max-height:60vh;overflow:auto}
-  img,svg,canvas{max-width:100%;height:auto}
-  pre,code{max-width:100%;overflow-x:auto}
+
+
+/* v1.58.2 — справді компактна мобільна шапка */
+@media screen and (max-width:640px) {
+  body > header {
+    display:flex!important;
+    flex-flow:row nowrap!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:9px!important;
+    min-height:0!important;
+    height:auto!important;
+    padding:8px 12px!important;
+    margin:0!important;
+    text-align:left!important;
+    border-bottom-width:2px!important;
+    overflow:hidden!important;
+  }
+  body > header:after { display:none!important; }
+  body > header .cross {
+    display:block!important;
+    flex:0 0 23px!important;
+    width:23px!important;
+    margin:0!important;
+    padding:0!important;
+    font-size:21px!important;
+    line-height:1!important;
+    text-align:center!important;
+  }
+  body > header h1 {
+    display:block!important;
+    flex:1 1 auto!important;
+    min-width:0!important;
+    margin:0!important;
+    font-size:18px!important;
+    line-height:1.15!important;
+    letter-spacing:0!important;
+    overflow-wrap:anywhere!important;
+  }
+  body > header p,
+  body > header .global-search-wrap,
+  body > header .storage-header-indicator {
+    display:none!important;
+  }
 }
-@media screen and (max-width:520px){
-  body>header{padding:10px 12px!important}
-  body>header .cross{flex-basis:25px;width:25px;font-size:23px!important}
-  body>header h1{font-size:20px!important}
-  main{padding-left:8px!important;padding-right:8px!important}
-  #mainNav{margin-left:-8px;margin-right:-8px;padding-left:8px!important;padding-right:8px!important}
-  #mainNav button{font-size:12px;padding:9px 10px;min-height:40px}
-  .panel,#eventEntry,#workPanel,#documentsPanel,#budgetPanel{padding:12px!important;border-radius:12px}
-  .dashboard-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  .month-cell{min-height:47px;font-size:9px}
-  .month-cell.head{font-size:9px}
-  .poster{padding:13px}
+@media screen and (max-width:380px) {
+  body > header { padding:7px 9px!important; gap:7px!important; }
+  body > header .cross { flex-basis:21px!important; width:21px!important; font-size:19px!important; }
+  body > header h1 { font-size:17px!important; }
 }
-@media screen and (max-width:380px){
-  body>header h1{font-size:18px!important}
-  #mainNav button{font-size:11px;padding:8px 9px}
-  .book-stat strong{font-size:21px}
-  .month-grid{gap:2px}
-  .month-cell{min-height:42px;padding:3px 1px;font-size:8px}
-  .month-cell.head{font-size:8px}
+
+/* v1.58.1 — компактна шапка на телефонах */
+@media screen and (max-width:640px) {
+  header {
+    display:grid!important;
+    grid-template-columns:28px minmax(0,1fr)!important;
+    grid-template-rows:auto auto auto auto!important;
+    align-items:center!important;
+    column-gap:8px!important;
+    row-gap:4px!important;
+    min-height:0!important;
+    height:auto!important;
+    padding:10px 12px 9px!important;
+    margin:0!important;
+    text-align:left!important;
+    border-bottom-width:2px!important;
+    overflow:hidden!important;
+  }
+  header:after { display:none!important; }
+  header .cross {
+    grid-column:1!important; grid-row:1!important;
+    display:block!important; margin:0!important;
+    font-size:23px!important; line-height:1!important;
+    text-align:center;
+  }
+  header h1 {
+    grid-column:2!important; grid-row:1!important;
+    display:block!important; margin:0!important;
+    font-size:clamp(18px,5vw,22px)!important;
+    line-height:1.12!important; letter-spacing:0!important;
+  }
+  header p {
+    grid-column:1/-1!important; grid-row:2!important;
+    margin:0!important; padding:0 0 2px!important;
+    font-size:10px!important; line-height:1.25!important;
+    color:#dce4eb!important;
+  }
+  header p br { display:none!important; }
+  header .global-search-wrap {
+    grid-column:1/-1!important; grid-row:3!important;
+    width:100%!important; margin:0!important;
+  }
+  header .global-search-wrap label {
+    display:none!important;
+  }
+  header .global-search-wrap input {
+    min-height:35px!important; height:35px!important;
+    padding:6px 10px!important; font-size:14px!important;
+    border-radius:8px!important;
+  }
+  header .storage-header-indicator {
+    grid-column:1/-1!important; grid-row:4!important;
+    margin:0!important; padding:0!important;
+    font-size:10px!important; line-height:1.2!important;
+  }
+}
+@media screen and (max-width:380px) {
+  header { padding:8px 10px 7px!important; row-gap:3px!important; }
+  header .cross { font-size:20px!important; }
+  header h1 { font-size:18px!important; }
+  header p { font-size:9px!important; }
+  header .global-search-wrap input { min-height:33px!important; height:33px!important; }
+}
+
+
+/* v1.58.3 — індикатор сховища у вигляді крапельки */
+@media screen and (max-width:640px) {
+  body > header .storage-header-indicator {
+    display:flex!important;
+    position:fixed!important;
+    top:8px!important;
+    left:8px!important;
+    z-index:1000!important;
+    width:30px!important;
+    height:30px!important;
+    min-width:30px!important;
+    padding:5px!important;
+    margin:0!important;
+    align-items:center!important;
+    justify-content:center!important;
+    border:1px solid #d9c9a9!important;
+    border-radius:50%!important;
+    background:#fffaf0!important;
+    color:#66836a!important;
+    box-shadow:0 2px 8px #0002!important;
+    cursor:default!important;
+    overflow:hidden!important;
+  }
+  body > header .storage-header-indicator svg {
+    display:block!important;
+    width:18px!important;
+    height:18px!important;
+    flex:0 0 18px!important;
+  }
+  body > header .storage-header-indicator.warn {
+    color:#b87922!important;
+    background:#fff5df!important;
+    border-color:#d8b36e!important;
+  }
+  body > header .storage-header-indicator.critical {
+    color:#b33d36!important;
+    background:#fff0ef!important;
+    border-color:#c77b73!important;
+  }
+  body > header .cross { display:none!important; }
+  body > header { padding-left:46px!important; }
+}
+@media screen and (max-width:380px) {
+  body > header .storage-header-indicator {
+    top:6px!important; left:6px!important;
+    width:27px!important; height:27px!important; min-width:27px!important;
+  }
+  body > header .storage-header-indicator svg {
+    width:16px!important; height:16px!important; flex-basis:16px!important;
+  }
+  body > header { padding-left:40px!important; }
+}
+
+
+/* v1.58.8 — зміни заголовка лише для мобільної версії */
+@media screen and (max-width:640px) {
+  body > header {
+    display:flex!important;
+    flex-flow:row nowrap!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:12px!important;
+    min-height:58px!important;
+    height:auto!important;
+    padding:13px 15px!important;
+    margin:0!important;
+    text-align:left!important;
+    border-bottom-width:2px!important;
+    overflow:hidden!important;
+  }
+  body > header:after { display:none!important; }
+  body > header .cross {
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    flex:0 0 27px!important;
+    width:27px!important;
+    height:auto!important;
+    margin:0!important;
+    padding:0!important;
+    color:#dfc797!important;
+    font-size:25px!important;
+    line-height:1!important;
+    text-align:center!important;
+  }
+  body > header h1 {
+    display:block!important;
+    flex:1 1 auto!important;
+    min-width:0!important;
+    margin:0!important;
+    font-size:21px!important;
+    line-height:1.2!important;
+    font-weight:600!important;
+    letter-spacing:0!important;
+    overflow-wrap:anywhere!important;
+  }
+  body > header p,
+  body > header .global-search-wrap,
+  body > header #storageHeaderIndicator,
+  body > header .storage-header-indicator {
+    display:none!important;
+  }
+}
+@media screen and (max-width:380px) {
+  body > header { min-height:54px!important; padding:11px 12px!important; gap:10px!important; }
+  body > header .cross { flex-basis:25px!important; width:25px!important; font-size:23px!important; }
+  body > header h1 { font-size:19px!important; }
 }
 </style>
 <script>
@@ -3676,134 +3916,6 @@ window.wachauCreatePublicationFromDate=openPublicationForDate;
  $('chooseEncryptedBackup')?.addEventListener('click',()=>{const p=$('secureBackupPassword').value;if(p.length<10){status('Спочатку введіть пароль щонайменше з 10 символів.',true);return}$('encryptedBackupFile').click()});
  $('encryptedBackupFile')?.addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{if(!crypto?.subtle)throw Error('Цей браузер не підтримує Web Crypto.');if(file.size>80*1024*1024)throw Error('Файл завеликий (максимум 80 МБ).');const pass=$('secureBackupPassword').value;if(pass.length<10)throw Error('Пароль має містити щонайменше 10 символів.');const payload=JSON.parse(await file.text());if(payload.format!=='WACHAU-ENC'||payload.version!==1||payload.cipher!=='AES-256-GCM'||payload.kdf!=='PBKDF2-SHA256'||payload.iterations!==310000)throw Error('Невідомий або непідтримуваний формат зашифрованої копії.');const salt=un64(payload.salt),iv=un64(payload.iv),cipher=un64(payload.data);if(salt.length!==16||iv.length!==12||cipher.length<17)throw Error('Криптографічні параметри резервної копії пошкоджені.');const key=await derive(pass,salt);let plain;try{plain=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,cipher)}catch(_){throw Error('Не вдалося розшифрувати файл. Перевірте пароль або цілісність копії.')}const data=JSON.parse(dec.decode(plain));if(data.format!=='WACHAU-ENCRYPTED-BACKUP'||typeof data.version!=='string'||!data.createdAt)throw Error('Метадані зашифрованої копії мають неправильний формат.');const keys=validateSnapshot(data.storage);if(!confirm('Знайдено зашифровану копію від '+new Date(data.createdAt).toLocaleString('uk-UA')+'. Записів: '+keys.length+'. Поточні дані буде замінено. Перед початком створено знімок поточного стану для автоматичного відкату. Продовжити?'))return;const previous=snapshot();try{replaceSnapshot(data.storage);verifySnapshot(data.storage)}catch(restoreError){try{replaceSnapshot(previous);verifySnapshot(previous);status('Відновлення не вдалося. Автоматичний відкат виконано й перевірено: попередні дані збережено. Причина: '+(restoreError.message||'помилка запису.'),true);return}catch(rollbackError){status('КРИТИЧНО: відновлення та автоматичний відкат не пройшли перевірку. Не закривайте вкладку й не очищайте дані браузера. Помилка відновлення: '+(restoreError.message||'невідома')+'; помилка відкату: '+(rollbackError.message||'невідома')+'.',true);return}}status('✓ Зашифровану копію відновлено. Перелік ключів і кожне значення перевірено.');if(confirm('Дані успішно відновлено. Перезавантажити органайзер зараз?'))location.reload()}catch(err){status(err.message||'Не вдалося відновити копію. Поточні дані не змінено.',true)}finally{e.target.value=''}});
 
-})();
-</script>
-
-<!-- v1.60.0: rebuilt mobile navigation with a dedicated visible scroll track -->
-<style id="wachau-mobile-nav-rebuild">
-@media screen and (max-width:760px){
-  body{overflow-x:hidden!important}
-  main{display:flex!important;flex-direction:column!important;align-items:stretch!important;min-width:0!important}
-  main>#mainNav.wachau-mobile-nav{
-    box-sizing:border-box!important;position:sticky!important;top:0!important;z-index:1000!important;
-    display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;
-    justify-content:flex-start!important;gap:8px!important;
-    width:calc(100% + 16px)!important;max-width:none!important;min-width:0!important;
-    margin:0 -8px 0!important;padding:9px 10px 10px!important;
-    overflow-x:auto!important;overflow-y:hidden!important;
-    -webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;
-    scroll-behavior:smooth!important;scrollbar-width:none!important;
-    white-space:nowrap!important;touch-action:pan-x pan-y!important;
-    background:#fffdfa!important;border:0!important;border-bottom:1px solid #e6ddd8!important;
-    border-radius:0 0 12px 12px!important;box-shadow:0 3px 10px #30251a12!important;
-  }
-  main>#mainNav.wachau-mobile-nav::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
-  main>#mainNav.wachau-mobile-nav .nav-kicker{display:none!important}
-  main>#mainNav.wachau-mobile-nav>button{
-    box-sizing:border-box!important;display:inline-flex!important;flex:0 0 auto!important;
-    align-items:center!important;justify-content:flex-start!important;gap:7px!important;
-    width:max-content!important;min-width:max-content!important;max-width:none!important;
-    min-height:42px!important;margin:0!important;padding:9px 13px!important;
-    white-space:nowrap!important;overflow:visible!important;
-    border:1px solid #e3d9d5!important;border-radius:999px!important;
-    background:#f7f3ef!important;color:#4e4650!important;
-    font-size:13px!important;line-height:1.2!important;text-align:left!important;
-  }
-  main>#mainNav.wachau-mobile-nav>button.active{background:#542936!important;color:#fff!important;border-color:#542936!important;box-shadow:none!important}
-  main>#mainNav.wachau-mobile-nav>button .nav-ico{display:inline-block!important;flex:0 0 auto!important;width:auto!important;font-size:15px!important}
-  #wachauMobileNavTrack[hidden]{display:none!important}
-  #wachauMobileNavTrack{
-    display:block!important;position:relative!important;box-sizing:border-box!important;
-    width:calc(100% + 16px)!important;height:10px!important;margin:0 -8px 12px!important;
-    padding:3px 8px!important;background:#fffdfa!important;border-bottom:1px solid #e6ddd8!important;
-    touch-action:pan-x!important;cursor:grab!important;
-  }
-  #wachauMobileNavTrack .wachau-nav-track{
-    position:relative!important;width:100%!important;height:4px!important;
-    border-radius:99px!important;background:#e8dfdc!important;overflow:hidden!important;
-  }
-  #wachauMobileNavTrack .wachau-nav-thumb{
-    position:absolute!important;left:0!important;top:0!important;height:4px!important;
-    min-width:30px!important;border-radius:99px!important;background:#8e626b!important;
-    transform:translateX(0);will-change:transform,width;
-  }
-}
-@media screen and (min-width:761px){#wachauMobileNavTrack{display:none!important}}
-</style>
-<script id="wachau-mobile-nav-rebuild-script">
-(function(){
-  'use strict';
-  var nav=document.getElementById('mainNav');
-  if(!nav)return;
-  function setup(){
-    if(window.matchMedia && !window.matchMedia('(max-width:760px)').matches)return;
-    nav.classList.add('wachau-mobile-nav');
-    var track=document.getElementById('wachauMobileNavTrack');
-    if(!track){
-      track=document.createElement('div');
-      track.id='wachauMobileNavTrack';
-      track.setAttribute('role','scrollbar');
-      track.setAttribute('aria-label','Прокручування розділів навігації');
-      track.setAttribute('aria-controls','mainNav');
-      track.setAttribute('aria-orientation','horizontal');
-      track.tabIndex=0;
-      track.innerHTML='<div class="wachau-nav-track"><div class="wachau-nav-thumb"></div></div>';
-      nav.insertAdjacentElement('afterend',track);
-    }
-    var thumb=track.querySelector('.wachau-nav-thumb');
-    var dragging=false;
-    function update(){
-      var max=nav.scrollWidth-nav.clientWidth;
-      var trackWidth=track.clientWidth-16;
-      if(max<=2||trackWidth<=0){track.hidden=true;return;}
-      track.hidden=false;
-      var ratio=nav.clientWidth/nav.scrollWidth;
-      var thumbWidth=Math.max(30,trackWidth*ratio);
-      var travel=Math.max(0,trackWidth-thumbWidth);
-      var left=travel*(nav.scrollLeft/max);
-      thumb.style.width=thumbWidth+'px';
-      thumb.style.transform='translateX('+left+'px)';
-      track.setAttribute('aria-valuemin','0');
-      track.setAttribute('aria-valuemax',String(Math.round(max)));
-      track.setAttribute('aria-valuenow',String(Math.round(nav.scrollLeft)));
-    }
-    function scrollAt(clientX){
-      var rect=track.getBoundingClientRect();
-      var trackWidth=track.clientWidth-16;
-      var max=nav.scrollWidth-nav.clientWidth;
-      var thumbWidth=thumb.getBoundingClientRect().width;
-      var travel=Math.max(1,trackWidth-thumbWidth);
-      var x=Math.min(travel,Math.max(0,clientX-rect.left-8-thumbWidth/2));
-      nav.scrollLeft=(x/travel)*max;
-    }
-    track.addEventListener('pointerdown',function(e){
-      dragging=true;track.setPointerCapture(e.pointerId);track.style.cursor='grabbing';scrollAt(e.clientX);e.preventDefault();
-    });
-    track.addEventListener('pointermove',function(e){if(dragging)scrollAt(e.clientX)});
-    function endDrag(){dragging=false;track.style.cursor='grab'}
-    track.addEventListener('pointerup',endDrag);
-    track.addEventListener('pointercancel',endDrag);
-    track.addEventListener('keydown',function(e){
-      if(e.key==='ArrowRight'){nav.scrollBy({left:120,behavior:'smooth'});e.preventDefault()}
-      if(e.key==='ArrowLeft'){nav.scrollBy({left:-120,behavior:'smooth'});e.preventDefault()}
-      if(e.key==='Home'){nav.scrollTo({left:0,behavior:'smooth'});e.preventDefault()}
-      if(e.key==='End'){nav.scrollTo({left:nav.scrollWidth,behavior:'smooth'});e.preventDefault()}
-    });
-    nav.addEventListener('scroll',update,{passive:true});
-    window.addEventListener('resize',update);
-    nav.addEventListener('click',function(e){
-      var button=e.target.closest('button[data-main]');
-      if(button)requestAnimationFrame(function(){
-        var left=button.offsetLeft+button.offsetWidth/2-nav.clientWidth/2;
-        nav.scrollTo({left:left,behavior:'smooth'});
-        update();
-      });
-    });
-    if(window.ResizeObserver){var ro=new ResizeObserver(update);ro.observe(nav);Array.from(nav.children).forEach(function(el){ro.observe(el)})}
-    update();
-    requestAnimationFrame(update);
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
 })();
 </script>
 
