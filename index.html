@@ -3523,68 +3523,17 @@ window.wachauCreatePublicationFromDate=openPublicationForDate;
 }
 
 
-/* v1.58.5 — повернення стриманого заголовка та хреста */
-@media screen {
-  body > header {
-    display:block!important;
-    text-align:left!important;
-    padding:22px max(18px,calc((100vw - 1240px)/2))!important;
-    background:linear-gradient(112deg,#382630 0%,#563a47 58%,#665044 100%)!important;
-    border:0!important;
-    border-bottom:3px solid #b99b68!important;
-    position:relative!important;
-    overflow:hidden!important;
-    box-shadow:none!important;
-  }
-  body > header:after {
-    display:block!important;
-    content:"✧";
-    position:absolute;
-    right:8%;
-    top:-42px;
-    font:190px/1 Georgia,serif;
-    color:#ffffff0b;
-    pointer-events:none;
-  }
-  body > header .cross {
-    display:inline-block!important;
-    vertical-align:middle!important;
-    margin:0 12px 0 0!important;
-    color:#dfc797!important;
-    font-size:25px!important;
-    line-height:1!important;
-  }
-  body > header h1 {
-    display:inline-block!important;
-    vertical-align:middle!important;
-    margin:0!important;
-    color:#fffaf1!important;
-    font-family:Georgia,serif!important;
-    font-size:clamp(23px,3vw,31px)!important;
-    font-weight:600!important;
-    letter-spacing:.1px!important;
-    line-height:1.2!important;
-  }
-  body > header p {
-    display:block!important;
-    margin:8px 0 0 40px!important;
-    color:#e7ddd4!important;
-    font-size:13px!important;
-    line-height:1.5!important;
-    letter-spacing:0!important;
-    text-transform:none!important;
-  }
-}
+/* v1.58.8 — зміни заголовка лише для мобільної версії */
 @media screen and (max-width:640px) {
   body > header {
     display:flex!important;
     flex-flow:row nowrap!important;
     align-items:center!important;
     justify-content:flex-start!important;
-    gap:9px!important;
-    min-height:0!important;
+    gap:12px!important;
+    min-height:58px!important;
     height:auto!important;
-    padding:9px 12px!important;
+    padding:13px 15px!important;
     margin:0!important;
     text-align:left!important;
     border-bottom-width:2px!important;
@@ -3593,11 +3542,15 @@ window.wachauCreatePublicationFromDate=openPublicationForDate;
   body > header:after { display:none!important; }
   body > header .cross {
     display:block!important;
-    flex:0 0 23px!important;
-    width:23px!important;
+    visibility:visible!important;
+    opacity:1!important;
+    flex:0 0 27px!important;
+    width:27px!important;
+    height:auto!important;
     margin:0!important;
     padding:0!important;
-    font-size:21px!important;
+    color:#dfc797!important;
+    font-size:25px!important;
     line-height:1!important;
     text-align:center!important;
   }
@@ -3606,21 +3559,23 @@ window.wachauCreatePublicationFromDate=openPublicationForDate;
     flex:1 1 auto!important;
     min-width:0!important;
     margin:0!important;
-    font-size:18px!important;
-    line-height:1.15!important;
+    font-size:21px!important;
+    line-height:1.2!important;
+    font-weight:600!important;
     letter-spacing:0!important;
     overflow-wrap:anywhere!important;
   }
   body > header p,
   body > header .global-search-wrap,
+  body > header #storageHeaderIndicator,
   body > header .storage-header-indicator {
     display:none!important;
   }
 }
 @media screen and (max-width:380px) {
-  body > header { padding:7px 9px!important; gap:7px!important; }
-  body > header .cross { flex-basis:21px!important; width:21px!important; font-size:19px!important; }
-  body > header h1 { font-size:17px!important; }
+  body > header { min-height:54px!important; padding:11px 12px!important; gap:10px!important; }
+  body > header .cross { flex-basis:25px!important; width:25px!important; font-size:23px!important; }
+  body > header h1 { font-size:19px!important; }
 }
 </style>
 <script>
