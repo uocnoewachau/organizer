@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Парафіяльний органайзер · Wachau · 1.57.0</title>
+<title>Парафіяльний органайзер · Wachau · 1.58.9</title>
 <style>
 :root{--wine:#542936;--gold:#b08a46;--paper:#f7f2e9;--ink:#292522;--muted:#746c64}
 *{box-sizing:border-box}body{margin:0;background:#eee8de;color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
@@ -611,7 +611,7 @@ header{
 <link rel="icon" type="image/svg+xml" href="./icons/wachau-icon.svg">
 </head>
 <body>
-<header><div class="cross">✝</div><h1>Парафіяльний органайзер</h1><p>Парафіяльний органайзер · Українська Православна Церква</p>
+<header><div class="cross">✝</div><h1>Парафіяльний органайзер</h1><p>Українська Православна Церква</p>
 <div class="global-search-wrap" role="search"><label for="globalSearch">Пошук по всьому органайзеру</label><input id="globalSearch" type="search" placeholder="Ім’я, дата, документ, подія, сума…" autocomplete="off"><div id="globalSearchResults" class="global-search-results hidden" aria-live="polite"></div></div><div id="storageHeaderIndicator" class="storage-header-indicator" role="status" aria-live="polite">Сховище: перевірка…</div>
 </header>
 <main>
@@ -3856,7 +3856,7 @@ window.wachauCreatePublicationFromDate=openPublicationForDate;
   }
   if(header){
    header.className='storage-header-indicator '+level;
-   header.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5C9.2 6.3 5.5 10.2 5.5 14.1a6.5 6.5 0 0 0 13 0C18.5 10.2 14.8 6.3 12 2.5Z" fill="currentColor"/><path d="M8.7 14.3c0 1.8 1.1 3 2.7 3.5" fill="none" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg>';
+   header.textContent='Сховище: '+formatStorageSize(used)+(level==='critical'?' · критично':level==='warn'?' · увага':'');
    header.title='Орієнтовний обсяг даних органайзера у локальному сховищі браузера';
   }
  }
