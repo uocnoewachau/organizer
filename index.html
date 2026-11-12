@@ -3465,59 +3465,105 @@ window.wachauCreatePublicationFromDate=openPublicationForDate;
 }
 
 
-/* v1.58.4 — оновлена українська шапка */
-@media screen and (min-width:641px) {
+/* v1.58.5 — повернення стриманого заголовка та хреста */
+@media screen {
   body > header {
-    text-align:center!important;
-    padding:25px 24px 22px!important;
-    background:
-      radial-gradient(ellipse at 50% -80%,#876c58 0%,transparent 58%),
-      linear-gradient(118deg,#302630 0%,#493440 52%,#3d463b 100%)!important;
+    display:block!important;
+    text-align:left!important;
+    padding:22px max(18px,calc((100vw - 1240px)/2))!important;
+    background:linear-gradient(112deg,#382630 0%,#563a47 58%,#665044 100%)!important;
+    border:0!important;
     border-bottom:3px solid #b99b68!important;
-    box-shadow:0 5px 20px #241a2018!important;
+    position:relative!important;
+    overflow:hidden!important;
+    box-shadow:none!important;
+  }
+  body > header:after {
+    display:block!important;
+    content:"✧";
+    position:absolute;
+    right:8%;
+    top:-42px;
+    font:190px/1 Georgia,serif;
+    color:#ffffff0b;
+    pointer-events:none;
   }
   body > header .cross {
-    display:block!important;
-    margin:0 0 5px!important;
+    display:inline-block!important;
+    vertical-align:middle!important;
+    margin:0 12px 0 0!important;
+    color:#dfc797!important;
     font-size:25px!important;
     line-height:1!important;
-    color:#dfc797!important;
   }
   body > header h1 {
-    display:block!important;
+    display:inline-block!important;
+    vertical-align:middle!important;
     margin:0!important;
     color:#fffaf1!important;
     font-family:Georgia,serif!important;
-    font-size:clamp(27px,3vw,36px)!important;
-    font-weight:500!important;
-    letter-spacing:.25px!important;
+    font-size:clamp(23px,3vw,31px)!important;
+    font-weight:600!important;
+    letter-spacing:.1px!important;
     line-height:1.2!important;
   }
   body > header p {
-    margin:7px 0 0!important;
-    color:#e3d8c9!important;
-    font-size:12px!important;
-    letter-spacing:.7px!important;
-    text-transform:uppercase;
-  }
-  body > header p:before {
-    content:"";
-    display:block;
-    width:54px;
-    height:1px;
-    margin:0 auto 8px;
-    background:linear-gradient(90deg,transparent,#c9ad78,transparent);
+    display:block!important;
+    margin:8px 0 0 40px!important;
+    color:#e7ddd4!important;
+    font-size:13px!important;
+    line-height:1.5!important;
+    letter-spacing:0!important;
+    text-transform:none!important;
   }
 }
 @media screen and (max-width:640px) {
+  body > header {
+    display:flex!important;
+    flex-flow:row nowrap!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:9px!important;
+    min-height:0!important;
+    height:auto!important;
+    padding:9px 12px!important;
+    margin:0!important;
+    text-align:left!important;
+    border-bottom-width:2px!important;
+    overflow:hidden!important;
+  }
+  body > header:after { display:none!important; }
+  body > header .cross {
+    display:block!important;
+    flex:0 0 23px!important;
+    width:23px!important;
+    margin:0!important;
+    padding:0!important;
+    font-size:21px!important;
+    line-height:1!important;
+    text-align:center!important;
+  }
   body > header h1 {
-    font-family:Georgia,serif!important;
-    font-weight:500!important;
-    letter-spacing:.1px!important;
-    color:#fffaf1!important;
+    display:block!important;
+    flex:1 1 auto!important;
+    min-width:0!important;
+    margin:0!important;
+    font-size:18px!important;
+    line-height:1.15!important;
+    letter-spacing:0!important;
+    overflow-wrap:anywhere!important;
+  }
+  body > header p,
+  body > header .global-search-wrap,
+  body > header .storage-header-indicator {
+    display:none!important;
   }
 }
-
+@media screen and (max-width:380px) {
+  body > header { padding:7px 9px!important; gap:7px!important; }
+  body > header .cross { flex-basis:21px!important; width:21px!important; font-size:19px!important; }
+  body > header h1 { font-size:17px!important; }
+}
 </style>
 <script>
 (function(){
