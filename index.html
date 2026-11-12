@@ -553,7 +553,7 @@ header{
 <link rel="icon" type="image/svg+xml" href="./icons/wachau-icon.svg">
 </head>
 <body>
-<header><div class="cross">✝</div><h1>Парафіяльний органайзер</h1><p>Українська Православна Церква · Православна громада Вахау<br>Ukrainische Orthodoxe Kirche · Orthodoxe Gemeinde Wachau</p>
+<header><div class="cross">✝</div><h1>Православна громада Вахау</h1><p>Парафіяльний органайзер · Українська Православна Церква</p>
 <div class="global-search-wrap" role="search"><label for="globalSearch">Пошук по всьому органайзеру</label><input id="globalSearch" type="search" placeholder="Ім’я, дата, документ, подія, сума…" autocomplete="off"><div id="globalSearchResults" class="global-search-results hidden" aria-live="polite"></div></div><div id="storageHeaderIndicator" class="storage-header-indicator" role="status" aria-live="polite">Сховище: перевірка…</div>
 </header>
 <main>
@@ -3462,6 +3462,60 @@ window.wachauCreatePublicationFromDate=openPublicationForDate;
     width:16px!important; height:16px!important; flex-basis:16px!important;
   }
   body > header { padding-left:40px!important; }
+}
+
+
+/* v1.58.4 — оновлена українська шапка */
+@media screen and (min-width:641px) {
+  body > header {
+    text-align:center!important;
+    padding:25px 24px 22px!important;
+    background:
+      radial-gradient(ellipse at 50% -80%,#876c58 0%,transparent 58%),
+      linear-gradient(118deg,#302630 0%,#493440 52%,#3d463b 100%)!important;
+    border-bottom:3px solid #b99b68!important;
+    box-shadow:0 5px 20px #241a2018!important;
+  }
+  body > header .cross {
+    display:block!important;
+    margin:0 0 5px!important;
+    font-size:25px!important;
+    line-height:1!important;
+    color:#dfc797!important;
+  }
+  body > header h1 {
+    display:block!important;
+    margin:0!important;
+    color:#fffaf1!important;
+    font-family:Georgia,serif!important;
+    font-size:clamp(27px,3vw,36px)!important;
+    font-weight:500!important;
+    letter-spacing:.25px!important;
+    line-height:1.2!important;
+  }
+  body > header p {
+    margin:7px 0 0!important;
+    color:#e3d8c9!important;
+    font-size:12px!important;
+    letter-spacing:.7px!important;
+    text-transform:uppercase;
+  }
+  body > header p:before {
+    content:"";
+    display:block;
+    width:54px;
+    height:1px;
+    margin:0 auto 8px;
+    background:linear-gradient(90deg,transparent,#c9ad78,transparent);
+  }
+}
+@media screen and (max-width:640px) {
+  body > header h1 {
+    font-family:Georgia,serif!important;
+    font-weight:500!important;
+    letter-spacing:.1px!important;
+    color:#fffaf1!important;
+  }
 }
 
 </style>
