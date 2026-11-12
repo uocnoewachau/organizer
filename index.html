@@ -3236,11 +3236,12 @@ window.wachauCreatePublicationFromDate=openPublicationForDate;
   body>header .global-search-wrap input{min-height:42px;height:42px;padding:9px 12px;font-size:16px;border-radius:11px}
   body>header #storageHeaderIndicator{display:none!important}
   main{display:block!important;width:100%;max-width:none;margin:0!important;padding:0 10px 22px!important}
-  #mainNav{position:static!important;top:auto!important;z-index:auto;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important;overflow:visible!important;margin:0 0 12px!important;padding:8px!important;border:1px solid #e4ded4;border-radius:13px;background:#fffdfa;box-shadow:0 3px 12px #30251a0c}
-  #mainNav .nav-kicker{display:block!important;grid-column:1/-1}
-  #mainNav button{display:flex!important;flex:initial;width:100%;min-width:0;min-height:44px;max-width:none;white-space:normal;gap:7px;margin:0;padding:9px 10px;border:0;border-radius:10px;background:transparent;color:#4e4650;font-size:12px;line-height:1.2;text-align:left}
-  #mainNav button.active{background:#eaf0f5;color:#20374f;box-shadow:inset 3px 0 #b99a62}
-  #mainNav button .nav-ico{width:20px;flex:0 0 20px;font-size:15px}
+  #mainNav{position:sticky!important;top:0;z-index:900;display:flex;flex-flow:row nowrap;gap:7px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -10px 12px;padding:8px 10px!important;border:0;border-bottom:1px solid #e4ded4;border-radius:0 0 13px 13px;background:rgba(255,253,250,.97);box-shadow:0 4px 12px #30251a12}
+  #mainNav::-webkit-scrollbar{display:none}
+  #mainNav .nav-kicker{display:none!important}
+  #mainNav button{display:inline-flex!important;flex:0 0 auto;width:auto;min-height:42px;max-width:230px;white-space:nowrap;gap:7px;margin:0;padding:9px 12px;border:1px solid #e4ded4;border-radius:22px;background:#f7f4ef;color:#4e4650;font-size:13px;line-height:1.2}
+  #mainNav button.active{background:#542936;color:#fff;border-color:#542936;box-shadow:none}
+  #mainNav button .nav-ico{width:auto;flex:0 0 auto;font-size:15px}
   #workspaceContent{display:block!important;min-width:0;width:100%;gap:12px}
   #workspaceContent>*{min-width:0;max-width:100%;margin-bottom:12px}
   .panel,#eventEntry,#workPanel,#documentsPanel,#budgetPanel{min-width:0;width:100%;padding:14px!important;border-radius:14px;box-shadow:0 3px 14px #24364b0a}
